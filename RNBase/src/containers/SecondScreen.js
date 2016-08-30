@@ -16,7 +16,13 @@ const styles = StyleSheet.create({
     alignItems:'center',
   }
 });
+import { Util } from '../utils';
+
 class SecondScreen extends Component{
+  constructor(props){
+    super(props);
+    Util.getPureRenderMixin(this);
+  }
   render(){
     return(
       <View style={styles.container}>

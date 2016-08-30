@@ -14,6 +14,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
+import { Util } from '../utils';
 import Immutable from 'immutable';
 const styles = StyleSheet.create({
   navBar:{
@@ -178,6 +179,8 @@ class App extends  Component{
     this.renderScene = this._renderScene.bind(this);
     this.configureScene = this._configureScene.bind(this);
     this.onNewFocus = this._onNewFocus.bind(this);
+
+    Util.getPureRenderMixin(this);
   }
   componentDidMount(){
     if(Platform.OS === 'android'){

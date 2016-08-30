@@ -9,6 +9,8 @@ import {
   TouchableOpacity,
   Dimensions,
 } from 'react-native';
+
+import { Util } from '../utils';
 const styles = StyleSheet.create({
   container:{
     flex:1,
@@ -33,6 +35,7 @@ class MainScreen extends Component{
  constructor(props){
    super(props);
    this.onPress = this._onPress.bind(this);
+   Util.getPureRenderMixin(this);
  }
 
  _onPress(){
@@ -43,6 +46,7 @@ class MainScreen extends Component{
      isWhite:false
    });
  }
+
   render(){
     const {width} = Dimensions.get('window');
     return(
