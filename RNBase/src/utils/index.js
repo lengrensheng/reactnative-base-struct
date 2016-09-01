@@ -3,5 +3,7 @@
  */
 
 module.exports = {
-  get Util() { return require('./util'); },
-}
+  get Util() {
+    return require('./util');
+  },
+};

@@ -1,7 +1,7 @@
 /**
  * Created by tiangen on 16/8/30.
  */
-import React,{
+import React, {
   Component,
   PropTypes,
 } from 'react';
@@ -13,40 +13,40 @@ import {
 } from 'react-native';
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
+  container: {
+    flex: 1,
   }
 });
 function makeScene(ComposedComponent) {
-  class ScenePage extends Component{
-    constructor(props){
+  class ScenePage extends Component {
+    constructor(props) {
       super(props);
       this.state = {
-        loaded:false,
+        loaded: false,
       }
     }
 
-    componentDidMount(){
-      InteractionManager.runAfterInteractions(()=>{
-        this.setState({loaded:true});
+    componentDidMount() {
+      InteractionManager.runAfterInteractions(()=> {
+        this.setState({ loaded: true });
       });
     }
 
-    render(){
-      if(!this.state.loaded){
+    render() {
+      if (!this.state.loaded) {
         return null;
       }
-      const {style,...otherProps} = this.props;
-      return(
+      const { style, ...otherProps } = this.props;
+      return (
         <ComposedComponent
           {...otherProps}
-          style={[styles.container,style]}
+          style={[styles.container, style]}
         />
       );
     }
   }
-  ScenePage.propTypes={
-    name:PropTypes.string.isRequired,
+  ScenePage.propTypes = {
+    name: PropTypes.string.isRequired,
   };
   return ComposedComponent;
 }

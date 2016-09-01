@@ -7,7 +7,10 @@ import {
   View,
   Text,
 } from 'react-native';
-
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {ViewActions} from '../reducers';
+import {ViewSelector,ConfigSelector} from '../selectors';
 const styles = StyleSheet.create({
   container:{
     flex:1,
@@ -23,6 +26,7 @@ class SecondScreen extends Component{
     super(props);
     Util.getPureRenderMixin(this);
   }
+
   render(){
     return(
       <View style={styles.container}>
@@ -33,4 +37,16 @@ class SecondScreen extends Component{
 }
 SecondScreen.PropTypes = {
 };
-module.exports = SecondScreen;
+
+function mapStateToProps(state, props) {
+  return {
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    viewActions: bindActionCreators(ViewActions, dispatch),
+  };
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(SecondScreen);
