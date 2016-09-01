@@ -28,7 +28,7 @@ function configureStore(onComplete) {
   persistStore(store, {
     storage: AsyncStorage,
     transforms: [immutableTransform({})],
-    blacklist: [ViewKeys.KEY_ROOT], // 蓝牙的实时状态不需要保存
+    blacklist: [ViewKeys.KEY_ROOT], // 页面状态不需要保存
   }, onComplete);
   if (isDebuggingInChrome) {
     window.store = store;
