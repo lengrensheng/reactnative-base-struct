@@ -16,8 +16,8 @@ import {
 } from 'react-native';
 import { Util } from '../utils';
 import Immutable from 'immutable';
-import { ConfigActions, ViewActions,ConfigKeys } from '../reducers';
-import { ConfigSelector } from '../selectors';
+import { ConfigActions, ViewActions } from '../reducers';
+import { ConfigSelector, ViewSelector } from '../selectors';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -196,6 +196,10 @@ class App extends Component {
     if (Platform.OS === 'android') {
       BackAndroid.addEventListener('hardwareBackPress', this.handleBackAndroid)
     }
+    const {configActions,isFirstUse} = this.props;
+     if(isFirstUse){
+       configActions.setFirstUse(false);
+     }
   }
 
   componentWillUnmount() {
@@ -286,6 +290,8 @@ App.propTypes = {};
 
 function mapStateToProps(state, props) {
   return {
+    isFirstUse: ConfigSelector.isFirstUse(state),
+    isActive: ViewSelector.isActive(state, props),
   };
 }
 

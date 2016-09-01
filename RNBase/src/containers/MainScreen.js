@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import { ViewActions,ConfigActions,ViewKeys,ConfigKeys } from '../reducers';
-import {ViewSelector,ConfigSelector} from '../selectors';
+import {ViewSelector,ConfigSelector} from '../selectors/index';
 import { Util } from '../utils';
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +33,13 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 16,
     color: 'white',
+  },
+  infoText:{
+    fontSize:16,
+    color:'#4a91f0'
+  },
+  marginTop20:{
+    marginTop:20,
   }
 });
 class MainScreen extends Component {
@@ -46,26 +53,28 @@ class MainScreen extends Component {
   }
 
   _onPress() {
-    const { navigator ,focus,configActions} = this.props;
+    const { navigator } = this.props;
     navigator.push({
       name: 'second',
       title: 'SecondPage',
       isWhite: false,
     });
-    configActions.setFirstUse(false);
   }
 
-  componentDidMount(){
-    const {isActive,focus} = this.props;
-    if(__DEV__)console.log(`isActive:${isActive},focus:${focus}`);
-  }
   render() {
-    const { isFirstUse } = this.props;
+    const { isActive,userInfo } = this.props;
     const { width } = Dimensions.get('window');
+    const userInfoView = userInfo.name?(
+      <Text style={styles.infoText}>{`userName:${userInfo.name}\nprovince:${userInfo.province}`}</Text>
+    )
+    :null;
     return (
       <View style={[styles.container]}>
-        <Text>{`isFirstUse:${isFirstUse}`}</Text>
-        <Text>{`MainScreen`}</Text>
+        {
+          userInfoView
+        }
+        <Text style={styles.marginTop20}>{`isActive:${isActive}`}</Text>
+        <Text style={styles.marginTop20}>{`MainScreen`}</Text>
         <TouchableOpacity
           style={[styles.button, { width: width - 40, marginTop: 40 }]}
           key={`key_row`}
@@ -81,9 +90,9 @@ MainScreen.PropTypes = {};
 
 function mapStateToProps(state, props) {
   return {
-    focus:ViewSelector.getFocus(state),
-    isFirstUse:ConfigSelector.isFirstUse(state),
+    focus: ViewSelector.getFocus(state),
     isActive:ViewSelector.isActive(state,props),
+    userInfo:ConfigSelector.getUserInfo(state),
   };
 }
 
